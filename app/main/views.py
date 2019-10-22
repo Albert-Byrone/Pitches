@@ -7,16 +7,13 @@ from .form import IdeaForm,CommentForm,UpdateProf
 
 @main.route('/')
 def index():
-    '''
-    Views thats renders news sources to the home page
-    '''
-    general_news = get_sources('general')
-    business_news = get_sources('business')
-    sport_news = get_sources('sports')
-    # tech_news = get_sources('technology')
-    # health_news = get_sources('health')
+    pitches = Pitch.query.all()
+    event = Pitch.query.filter_by(category = 'Event').all()
+    interview = Pitch.query.filter_by(category='Interview').all()
+    job = Pitch.query.filter_by(category='Job')
     
-    return render_template('index.html',general = general_news,business=business_news,sports=sport_news)
+    return render_template('index.html',job=job,event=event,interview=interview,pitches=pitches)
+
 
 @main.route('/articles/<id>')
 def sourceArticle(id):
