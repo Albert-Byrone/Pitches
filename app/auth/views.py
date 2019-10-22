@@ -27,3 +27,9 @@ def signup():
         mail_message("Welcome to Pitch-World","email/welcome_user",user.email,user=user)
         return redirect(url_for('auth.login'))
     return render_template('auth/signup.html',reg_form=form)
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main.index"))
