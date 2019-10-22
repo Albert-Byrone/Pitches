@@ -11,7 +11,7 @@ def index():
     event = Pitch.query.filter_by(category = 'Event').all()
     interview = Pitch.query.filter_by(category='Interview').all()
     job = Pitch.query.filter_by(category='Job')
-    
+
     return render_template('index.html',job=job,event=event,interview=interview,pitches=pitches)
 
 @main.route('/create_new',methods=['GET','POST'])
@@ -107,13 +107,3 @@ def dislike(id):
     return redirect(url_for('main.index',id=id))
 
 
-@main.route('/search/<articl>')
-def articleSearch(article_name):
-    '''
-    a function that returns the searched articles
-    '''
-    search_article_name = article_name.split(" ")
-    search_name_format = "+".join(search_article_name)
-    searched_articles = search_article(search_name_format)
-
-    return render_template('search.html',articles = searched_articles   )
