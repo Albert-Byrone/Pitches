@@ -71,6 +71,7 @@ def update_pic(name):
     user = User.query.filter_by(username=name).first()
     if 'photo' is request.files:
         filename = photos.save(request.files['photo'])
+        print(filename)
         path = f'photos/{filename}'
         user.profile_pic_path =path
         db.session.commit()
