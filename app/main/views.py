@@ -76,6 +76,20 @@ def update_pic(name):
         db.session.commit()
     return redirect(url_for('main.profile',name=name))
 
+@main.route('/like/<int:id>',methods=['GET','POST'])
+@login_required
+def like(id):
+    get_pitches = Upvote.get_upvotes(id)
+    valid_string = f'{current_user.id}:{id}'
+    for pit in get_pitches:
+        to_str = f'{pit}'
+        if valid_string == to_str:
+            return redirect(url_for('main.index',id=id))
+        else:
+            continue
+    new_vote = Upvote(user=current_user,pitch_id=id)
+    new_vote.save()
+    return redirect(url_for('main.index',id=id))
 
     return render_template('article.html', education = education_article,health=health_article)
 
