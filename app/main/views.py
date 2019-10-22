@@ -52,6 +52,18 @@ def profile(name):
         abort(404)
     return render_template("profile/profile.html",user= user,posts=posts)
 
+@main.route('/user/<name>/updateprof',methods=['GET','POST'])
+@login_required
+def updateprof(name):
+    form = UpdateProf()
+    user= User.query.filter_by(username = name).first()
+    if user is None:
+        abort(404)
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+        user.save_user()
+        return redirect(url_for('.profile',name=name))
+    return render_template('profile/update.html' ,form=form)
 
 @main.route('/News-Articles')
 def NewsArticle():
