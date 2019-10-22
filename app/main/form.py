@@ -11,3 +11,8 @@ class IdeaForm(FlaskForm):
     category = SelectField('Category',choices=[('Interview','Interview'),('Events','Events'),('Job','Job')],validators=[Required()])
     post = TextAreaField('Your idea',validators=[Required()])
     submit = SubmitField('Share your idea')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Leave a comment',validators=[Required()])
+    submit = SubmitField('Comment')
+    
