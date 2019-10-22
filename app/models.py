@@ -88,3 +88,7 @@ class Upvote(db.Model):
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
 
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
