@@ -65,13 +65,17 @@ def updateprof(name):
         return redirect(url_for('.profile',name=name))
     return render_template('profile/update.html' ,form=form)
 
-@main.route('/News-Articles')
-def NewsArticle():
-    '''
-    views that returns the news article
-    '''
-    education_article = get_articles('education')
-    health_article = get_articles('health')
+@main.route('/user/<name>/update/pic',methods=['GET','POST'])
+@login_required
+def update_pic(name):
+    user = User.query.filter_by(username=name).first()
+    if 'photo' is request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path =path
+        db.session.commit()
+    return redirect(url_for('main.profile',name=name))
+
 
     return render_template('article.html', education = education_article,health=health_article)
 
