@@ -1,9 +1,10 @@
-from flask import render_template,request,redirect,url_for
+from flask import render_template,redirect,url_for,abort,request
 from . import main
-from ..request import get_sources,get_articles,article_source,search_article
-from ..model import Articles,Sources
+from flask_login import login_required,current_user
+from ..models import User,Pitch,Comment,Upvote,Downvote
+from .. import db,photos
+from .form import IdeaForm,CommentForm,UpdateProf
 
-#Views 
 @main.route('/')
 def index():
     '''
