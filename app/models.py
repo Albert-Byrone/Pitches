@@ -54,3 +54,9 @@ class Pitch(db.Model):
     upvote = db.relationship('Upvote',backref='pitch',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='pitch',lazy='dynamic')
 
+    def save_pitches(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Pitch {self.post}'
