@@ -1,3 +1,8 @@
+{% extends 'base.html'%}
+{% import 'macro.html' as macro %}
+
+{% block content%}
+<div class="container">
     <h2></h2>
     <ul class="nav nav-pills nav-justified nav-fill" role="tablist">
         <li class="nav-item">
@@ -13,3 +18,20 @@
           <a class="nav-link" id="homCards"  data-toggle="tab" href="#interview">Interview Pitches</a>
         </li>
       </ul>
+      <div class="tab-content">
+        <div class="container tap-pan active" id="all">
+          {{ macro.displayContent(pitches) }}
+        </div>
+        <div class="container tap-pan fade" id="job">
+            {{ macro.displayContent(job) }}
+        </div>
+        <div class="container tap-pan fade" id="interview">
+            {{ macro.displayContent(interview) }}
+        </div>
+        <div class="container tap-pan fade" id="event">
+            {{macro.displayContent(event)}}
+        </div>
+      </div>
+</div>
+{% endblock %}
+
