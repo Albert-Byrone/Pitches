@@ -14,6 +14,20 @@ def index():
     
     return render_template('index.html',job=job,event=event,interview=interview,pitches=pitches)
 
+@main.route('/create_new',methods=['GET','POST'])
+@login_required
+def new_pitch():
+    form = IdeaForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        post = form.post.data
+        category = form.category.data
+        user_id = current_user
+        new_pitch_object = Pitch(post=post,user_id=current_user._get_current_object().id,category=category,title=title)
+        new_pitch_object.save_pitches()
+        return redirect(url_for('main.index'))
+    return render_template('pitch.html',form = form)
+
 
 @main.route('/articles/<id>')
 def sourceArticle(id):
