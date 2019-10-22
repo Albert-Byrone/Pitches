@@ -112,3 +112,8 @@ class Downvote(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    @classmethod
+    def get_downvotes(cls,id):
+        downvotes = Downvote.query.filter_by(pitch_id = id).all()
+        return downvotes
+
