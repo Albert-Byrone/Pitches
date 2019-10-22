@@ -43,15 +43,15 @@ def comment(pitch_id):
         return redirect(url_for('.comment',pitch_id=pitch_id))
     return render_template('comment.html',form=form,pitch=pitch,all_comments=all_comments)
 
-@main.route('/articles/<id>')
-def sourceArticle(id):
-    '''
-    Views thats renders news sources to the home page
-    '''
-    all_articles = article_source(id)
-    print(all_articles)
-    source = id
-    return render_template('sourcearticles.html', articles = all_articles, source = source)
+@main.route('/user/<name>')
+def profile(name):
+    user = User.query.filter_by(username =name).first()
+    user_id = current_user._get_current_object().id
+    posts = Pitch.query.filter_by(user_id=user_id).all()
+    if user is None:
+        abort(404)
+    return render_template("profile/profile.html",user= user,posts=posts)
+
 
 @main.route('/News-Articles')
 def NewsArticle():
