@@ -100,3 +100,11 @@ class Upvote(db.Model):
     def __repr__(self):
         return f"{self.user_id}:{self.pitch_id}"
 
+class Downvote(db.Model):
+    __tablename__ = 'downvotes'
+
+    id =  db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    
+
