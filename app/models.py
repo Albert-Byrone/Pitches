@@ -92,3 +92,11 @@ class Upvote(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    @classmethod
+    def get_upvotes(cls,id):
+        upvote = Upvote.query.filter_by(pitch_id = id).all()
+        return upvote
+
+    def __repr__(self):
+        return f"{self.user_id}:{self.pitch_id}"
+
